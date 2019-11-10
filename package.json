@@ -1,0 +1,25 @@
+{
+  "name": "produtor-video",
+  "version": "1.0.0",
+  "description": "\u0016Robôs para produzir vídeos automatizados",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamtorres1/produtor-video.git"
+  },
+  "keywords": [
+    "automação",
+    "robot",
+    "video",
+    "video-maker"
+  ],
+  "author": "William Torres",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/williamtorres1/produtor-video/issues"
+  },
+  "homepage": "https://github.com/williamtorres1/produtor-video#readme"
+}
