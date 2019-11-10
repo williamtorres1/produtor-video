@@ -1,28 +1,15 @@
-//biblioteca readline-sync importada no comando abaixo
-const readLine = require('readline-sync');
+//adição do robo de texto
+const robots = 
+{
+    userInput: require('./robots/user-input.js'),
+    text: require('./robots/text.js')
+}
 
-
-function start()
+async function start()
 {
     const content = {};
-    content.searchTerm = askAndReturnSearchTerm();
-
-    content.prefix = askAndReturnPrefix();
-
-    function askAndReturnSearchTerm()
-    {
-        return readLine.question('Type a Wikipedia search term: ');
-    }
-
-    function askAndReturnPrefix()
-    {
-        const prefixes = ['Who is', 'What is', 'The history of'];
-        const selectedPrefixIndex = readLine.keyInSelect(prefixes, 'Choose one option: ');
-        const selectedPrefixText = prefixes[selectedPrefixIndex];
-        
-        return selectedPrefixText;
-    }
-
+    robots.userInput(content);
+    await robots.text(content);
     console.log(content);
 }
 
