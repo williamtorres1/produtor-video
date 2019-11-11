@@ -12,7 +12,6 @@ async function start()
     robots.userInput(content);
     await robots.text(content);
     await robots.pdfCreator(content);
-    console.log(content);
 }
 
 start();
