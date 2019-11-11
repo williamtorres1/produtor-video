@@ -31,9 +31,10 @@ async function robot (content)
     function sanitizeContent(content)
         {
             const withoutBlankLinesAndMarkDown = removeBlankLinesAndMarkDown(content.sourceContentOriginal);
-            console.log(withoutBlankLinesAndMarkDown);
+            const withoutDatesInParentheses = removeDatesInParentheses(withoutBlankLinesAndMarkDown);
             
-            
+            console.log(withoutDatesInParentheses);
+
             function removeBlankLinesAndMarkDown(text)
             {
                 const allLines = text.split('\n');
@@ -47,9 +48,16 @@ async function robot (content)
                     return true;
                 });
 
-                return withoutBlankLinesAndMarkDown;
+                return withoutBlankLinesAndMarkDown.join(' ');
+            }
+
+            function removeDatesInParentheses(text)
+            {
+                return text.replace(/\((?:\([^()]*\)|[^()])*\)/gm, '').replace(/  /g,' ');
             }
         }
+
+        
     
 }
 
