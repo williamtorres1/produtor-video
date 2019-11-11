@@ -9,7 +9,7 @@ const algorithmiaApiKey = require('../credentials/algorithmia.json').ApiKey
 async function robot (content)
 {
     await fetchContentFromWikipedia(content);
-//    sanitizeContent(content);
+    sanitizeContent(content);
 //    breakContentIntoSentences(content);
 
     async function fetchContentFromWikipedia(content)
@@ -19,15 +19,45 @@ async function robot (content)
         const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm);
         const wikipediaContent = wikipediaResponse.get();
         /**
-         1. Autenticação
+         1. Autenticação no Algorithimia
          2. Define o algoritmo
          3. Executa o algoritmo
          4. Captura o valor* 
          */
         content.sourceContentOriginal = wikipediaContent.content;
-        console.log(content.sourceContentOriginal);
 
     }
+
+    function sanitizeContent(content)
+        {
+            const withoutBlankLinesAndMarkDown = removeBlankLinesAndMarkDown(content.sourceContentOriginal);
+            const withoutDatesInParentheses = removeDatesInParentheses(withoutBlankLinesAndMarkDown);
+            
+            console.log(withoutDatesInParentheses);
+
+            function removeBlankLinesAndMarkDown(text)
+            {
+                const allLines = text.split('\n');
+
+                const withoutBlankLinesAndMarkDown = allLines.filter((line) => {
+                    if (line.trim().length === 0 || line.trim().startsWith('='))
+                    {
+                        return false;
+                    }
+
+                    return true;
+                });
+
+                return withoutBlankLinesAndMarkDown.join(' ');
+            }
+
+            function removeDatesInParentheses(text)
+            {
+                return text.replace(/\((?:\([^()]*\)|[^()])*\)/gm, '').replace(/  /g,' ');
+            }
+        }
+
+        
     
 }
 
