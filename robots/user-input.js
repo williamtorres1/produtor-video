@@ -19,6 +19,7 @@ function robot(content)
 
         return selectedPrefixText;
     }
+
 }
 
 module.exports = robot;

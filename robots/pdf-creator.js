@@ -1,5 +1,6 @@
 //adicionado a biblioteca 'pdfkit'
 const PDFDocument = require('pdfkit');
+//adicionado o 'filesystem' do node
 const fs = require('fs');
 const doc = new PDFDocument();
  
