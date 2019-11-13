@@ -8,12 +8,12 @@ const fs = require('fs');
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const watsonApiKey = require('../credentials/watson-nlu.json').apikey
 const { IamAuthenticator } = require('ibm-watson/auth');
- 
-const nlu = new NaturalLanguageUnderstandingV1({
-  authenticator: new IamAuthenticator({ apikey: watsonApiKey }),
-  version: '2018-04-05',
-  url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/'
-});
+    
+    const nlu = new NaturalLanguageUnderstandingV1({
+    authenticator: new IamAuthenticator({ apikey: watsonApiKey }),
+    version: '2018-04-05',
+    url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/'
+    });
 
 //add Sentence Boundary Detection
 const sentenceBoundaryDetection = require('sbd');
@@ -102,28 +102,27 @@ async function robot (content)
     }
  
 
-    async function fetchWatsonAndReturnKeywords(sentence)
-    {
-        return new Promise ((resolve, reject) => {
-            nlu.analyze(
-                {
-                text: sentence,
-                features: {
-                    keywords: {}
-                }
-                }, (error, response) => {
-                    if (error){
-                        throw error;
-                    }
+    async function fetchWatsonAndReturnKeywords(sentence) {
+        return new Promise((resolve, reject) => {
+          nlu.analyze({
+            text: sentence,
+            features: {
+              keywords: {}
+            }
+          }, (error, response) => {
+            if (error) {
+              throw error
+            }
+            console.log(JSON.stringify( response, null, 4))
+            const keywords = response.keywords.map((keyword) => {
+                return keyword.text
+            })
 
-                    const keywords = response.keywords.map((keyword) => {
-                        return keyword.text
-                      })
-
-                    resolve(keywords);
-                })
+            resolve(keywords)
+          })
         })
-    }
+      }
+    
 }
 
 module.exports = robot;
