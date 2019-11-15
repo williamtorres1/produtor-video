@@ -8,6 +8,9 @@ const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-unde
 const watsonApiKey = require('../credentials/watson-nlu.json').apikey
 const { IamAuthenticator } = require('ibm-watson/auth');
     
+
+const state = require('./state.js');
+
     const nlu = new NaturalLanguageUnderstandingV1({
     authenticator: new IamAuthenticator({ apikey: watsonApiKey }),
     version: '2018-04-05',
@@ -17,14 +20,18 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 //add Sentence Boundary Detection
 const sentenceBoundaryDetection = require('sbd');
 
-async function robot (content)
+async function robot ()
 {
+    const content = state.load();
+
+    
     await fetchContentFromWikipedia(content);
     sanitizeContent(content);
     breakContentIntoSentences(content);
     limitMaximumSentences(content);
     await fetchKeywordsOfAllSentences(content);
 
+    state.save(content);
     async function fetchContentFromWikipedia(content)
     {
         const algorithmiaAuthenticated = algorithmia(algorithmiaApiKey);
