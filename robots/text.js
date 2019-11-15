@@ -1,4 +1,3 @@
-
 //add algorithmia 
 const algorithmia = require('algorithmia')
 //pegar as credenciais da conta do usuario no algorithmia
@@ -98,7 +97,7 @@ async function robot (content)
 
     function limitMaximumSentences(content)
     {
-        content.sentences = content.sentences.slice(0, content.maximumSentences)
+        content.sentences = content.sentences.slice(0, content.maximumSentences);
     }
  
 
@@ -113,8 +112,7 @@ async function robot (content)
             if (error) {
               throw error
             }
-            console.log(JSON.stringify( response, null, 4))
-            const keywords = response.keywords.map((keyword) => {
+            const keywords = response.result.keywords.map((keyword) => {
                 return keyword.text
             })
 
