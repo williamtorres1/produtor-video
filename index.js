@@ -8,11 +8,13 @@ const robots =
 
 async function start()
 {
-    const content = {};
+    const content = {
+        maximumSentences: 2
+    };
     robots.userInput(content);
     await robots.text(content);
-    await robots.pdfCreator(content);
-    console.log(content);
+    //await robots.pdfCreator(content);
+    console.log(content.sentences);
 }
 
 start();

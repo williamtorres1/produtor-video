@@ -1,12 +1,20 @@
-
 //add algorithmia 
 const algorithmia = require('algorithmia')
-
 //pegar as credenciais da conta do usuario no algorithmia
-const algorithmiaApiKey = require('../credentials/algorithmia.json').ApiKey
+const algorithmiaApiKey = require('../credentials/algorithmia.json').apiKey
+
+const fs = require('fs');
+const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
+const watsonApiKey = require('../credentials/watson-nlu.json').apikey
+const { IamAuthenticator } = require('ibm-watson/auth');
+    
+    const nlu = new NaturalLanguageUnderstandingV1({
+    authenticator: new IamAuthenticator({ apikey: watsonApiKey }),
+    version: '2018-04-05',
+    url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/'
+    });
 
 //add Sentence Boundary Detection
-
 const sentenceBoundaryDetection = require('sbd');
 
 async function robot (content)
@@ -14,6 +22,8 @@ async function robot (content)
     await fetchContentFromWikipedia(content);
     sanitizeContent(content);
     breakContentIntoSentences(content);
+    limitMaximumSentences(content);
+    await fetchKeywordsOfAllSentences(content);
 
     async function fetchContentFromWikipedia(content)
     {
@@ -73,6 +83,43 @@ async function robot (content)
             })
         });
     }
+
+
+    async function fetchKeywordsOfAllSentences(content)
+    {
+        for(const sentence of content.sentences)
+        {
+            sentence.keywords = await fetchWatsonAndReturnKeywords(sentence.text);
+        }
+    }
+
+
+
+    function limitMaximumSentences(content)
+    {
+        content.sentences = content.sentences.slice(0, content.maximumSentences);
+    }
+ 
+
+    async function fetchWatsonAndReturnKeywords(sentence) {
+        return new Promise((resolve, reject) => {
+          nlu.analyze({
+            text: sentence,
+            features: {
+              keywords: {}
+            }
+          }, (error, response) => {
+            if (error) {
+              throw error
+            }
+            const keywords = response.result.keywords.map((keyword) => {
+                return keyword.text
+            })
+
+            resolve(keywords)
+          })
+        })
+      }
     
 }
 
