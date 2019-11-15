@@ -1,11 +1,15 @@
 //biblioteca readline-sync importada no comando abaixo
 const readLine = require('readline-sync');
-
-function robot(content)
+//import state robot
+const state = require('./state.js');
+function robot()
 {
+    const content = {
+        maximumSentences: 2
+    };
     content.searchTerm = askAndReturnSearchTerm();
     content.prefix = askAndReturnPrefix();
-    
+    state.save(content);
     function askAndReturnSearchTerm()
     {
         return readLine.question('Type a Wikipedia search term: ');
