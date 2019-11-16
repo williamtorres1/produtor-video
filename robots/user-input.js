@@ -9,6 +9,12 @@ function robot()
     };
     content.searchTerm = askAndReturnSearchTerm();
     content.prefix = askAndReturnPrefix(content.searchTerm);
+    content.maximumSentences = askAndReturnMaximumSentences(content.maximumSentences);
+    if(isNaN(content.maximumSentences) || content.maximumSentences <= 0 || content.maximumSentences >= 20)
+    {
+        content.maximumSentences = 7;
+        console.log('You choose a value for maximum sentences invalid, we will work with the value default (7).');
+    }
     state.save(content);
     function askAndReturnSearchTerm()
     {
@@ -22,6 +28,11 @@ function robot()
         const selectedPrefixText = prefixes[selectedPrefixIndex];
 
         return selectedPrefixText;
+    }
+
+    function askAndReturnMaximumSentences(maximumSentences)
+    {
+        return readLine.question('Type the maximum sentences: ');
     }
 
 }
