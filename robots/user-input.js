@@ -8,17 +8,17 @@ function robot()
         maximumSentences: 7
     };
     content.searchTerm = askAndReturnSearchTerm();
-    content.prefix = askAndReturnPrefix();
+    content.prefix = askAndReturnPrefix(content.searchTerm);
     state.save(content);
     function askAndReturnSearchTerm()
     {
         return readLine.question('Type a Wikipedia search term: ');
     }
 
-    function askAndReturnPrefix()
+    function askAndReturnPrefix(searchTerm)
     {
         const prefixes = ['Who is', 'What is', 'The history of'];
-        const selectedPrefixIndex = readLine.keyInSelect(prefixes, 'Choose one option: ');
+        const selectedPrefixIndex = readLine.keyInSelect(prefixes, `Choose one option for: ${searchTerm}`);
         const selectedPrefixText = prefixes[selectedPrefixIndex];
 
         return selectedPrefixText;
