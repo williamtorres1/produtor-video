@@ -18,7 +18,7 @@ function robot()
     function askAndReturnPrefix(searchTerm)
     {
         const prefixes = ['Who is', 'What is', 'The history of'];
-        const selectedPrefixIndex = readLine.keyInSelect(prefixes, `Choose one option for: ${searchTerm}`);
+        const selectedPrefixIndex = readLine.keyInSelect(prefixes, `Choose one option for ${searchTerm}:`);
         const selectedPrefixText = prefixes[selectedPrefixIndex];
 
         return selectedPrefixText;
