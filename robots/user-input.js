@@ -5,7 +5,7 @@ const state = require('./state.js');
 function robot()
 {
     const content = {
-        maximumSentences: 2
+        maximumSentences: 7
     };
     content.searchTerm = askAndReturnSearchTerm();
     content.prefix = askAndReturnPrefix();
