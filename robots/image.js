@@ -40,8 +40,6 @@ async function robot()
 
     async function selectImages(sentence)
     {
-        //console.log(sentence);
-
         sentence.forEach(element => {
             console.log(`Go to the current folder and select a image for EACH sentence.Your current sentence is:`);
             console.dir(`${element.text}`,{depth:null})
