@@ -19,7 +19,9 @@ The pics choosed to made the "Standard_template" are picked from: https://pixaba
 Link to photo: https://www.pexels.com/photo/photo-of-person-standing-on-cliff-edge-3181458/
 
 Pexels: https://www.pexels.com/@bowovisuals
+
 Instagram: https://www.instagram.com/bowovisuals/
+
 Donate: https://www.paypal.com/donate/?token=JSKc5IobxUPZrz9BZHxsNm5BPr5FOVYJITNzme1iCN-XQwUa8wX5CztzR23C9lV68BLMxG&country.x=US&locale.x=US
 
 2. standard_template_[1]
