@@ -11,13 +11,13 @@ const robots =
 
 async function start()
 {
-    //robots.userInput();
-    //await robots.text();
-    //await robots.pdfCreator();
+    robots.userInput();
+    await robots.text();
+    await robots.pdfCreator();
     await robots.image();
-    //await robots.video();
+    await robots.video();
     const content = robots.state.load();
-    //console.dir(content, {depth:null });//mantem toda a profunidade do content, basicamente um stringify
+    console.dir(content, {depth:null });//mantem toda a profunidade do content, basicamente um stringify
 }
 
 start();
