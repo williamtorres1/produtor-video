@@ -5,7 +5,8 @@ const robots =
     text: require('./robots/text.js'),
     pdfCreator: require('./robots/pdf-creator.js'),
     state: require('./robots/state'),
-    image: require('./robots/image.js')
+    image: require('./robots/image.js'),
+    video: require('./robots/video.js')
 }
 
 async function start()
@@ -14,8 +15,9 @@ async function start()
     await robots.text();
     await robots.pdfCreator();
     await robots.image();
+    await robots.video();
     const content = robots.state.load();
-    console.dir(content, {depth:null });//mantem toda a profunidade do content, basicamente um stringify
+    //console.dir(content, {depth:null });//mantem toda a profunidade do content, basicamente um stringify
 }
 
 start();

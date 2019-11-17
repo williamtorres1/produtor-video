@@ -3,9 +3,13 @@ const PDFDocument = require('pdfkit');
 //adicionado o 'filesystem' do node
 const fs = require('fs');
 const doc = new PDFDocument();
- 
-async function robot(content)
+
+const state = require('./state.js');
+
+async function robot()
 {
+    const content = state.load();
+
     //'prefix' + 'searchterm' + 'pdf'
     pdfName = content.prefix.concat(' ',content.searchTerm,'.pdf');
     doc.pipe(fs.createWriteStream(pdfName));
